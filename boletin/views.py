@@ -10,7 +10,7 @@ from .models import Registrado
 def inicio(request):
 	titulo = "HOLA"
 	if request.user.is_authenticated():
-		titulo = "Bienvenido %s" %(request.user)
+		titulo = "Bienvenidod %s" %(request.user)
 	form = RegModelForm(request.POST or None)
 
 	context = {
