@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,14 @@
 
     <title>{% block head_title %}Samuel{% endblock %}</title>
     
+    <style type="text/css">
+      {% block style %}
+      {% endblock %}
+    </style>
+
+
     {% include "head_css.html" %}
+      
 
   </head>
 
@@ -22,15 +29,11 @@
     {% include "navbar.html" %}
 
 
+    {% block jumbotron %}        
+    {% endblock %}
     <div class="container">
       <!-- Main component for a primary marketing message or call to action -->
-      {% block jumbotron %}
-      <div class="jumbotron">
-      {% block jumbotron_content %}
-
-      {% endblock %}  
-      </div>    
-      {% endblock %}
+      
 
 
 
