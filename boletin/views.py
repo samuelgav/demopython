@@ -45,7 +45,7 @@ def inicio(request):
 		#obj = Registrado.objects.create(email=abc, nombre=abc2)
 
 	
-	return render(request, "base.html", context)
+	return render(request, "inicio.html", context)
 
 def contact(request):
 	form = ContactForm(request.POST or None)
