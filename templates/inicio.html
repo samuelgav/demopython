@@ -21,6 +21,28 @@
 
 {% block jumbotron %}
 
+{% if request.user.is_staff %}
+<h3 class="text-align-center"><strong>Listado de Usuarios</strong></h3>
+<hr>
+<table class="table table-striped">
+ <thead>
+  <th>Id</td>
+  <th>Email</th>
+  <th>Nombre</th>
+  <th>Creado</th>  
+ </thead>
+ <tbody>
+{% for instance in queryset %}
+<tr>
+  <td>{{forloop.counter}}</td>
+  <td>{{instance}}</td>
+  <td>{{instance.nombre}}</td>
+  <td>hace {{instance.timestamp|timesince}}</td>  
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
 <div class="jumbotron">
 <div class="container">
 <div class="row">
@@ -28,7 +50,7 @@
         <h1>Developer Projects</h1>
         <p class="lead">Aplicacion Django</p>        
         <p>
-          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">únete &raquo;</a>
+          <a class="btn btn-lg btn-primary" href="#" role="button">únete &raquo;</a>
         </p>
  </div>
  <div class="col-sm-6">
@@ -37,6 +59,7 @@
 </div>
 </div>  
 </div>  
+{% endif %}
 {% endblock %}
 
 
@@ -47,13 +70,20 @@
 <br/>
 
 {% block content %}
+{% if not request.user.is_staff %}
 <div class="row">
 	<div class="col-sm-3 col-xs-12 pull-right">
-		<p class="lead text-align-center">{{titulo}}</p>
-<form method="POST" action="" >{% csrf_token %}
-{{ el_form|crispy }}
-<input class="btn btn-primary" type="submit" value="Inscribirse" />
-</form>
+		{% if not user.is_authenticated %}
+    <p class="lead text-align-center">Subscribirte</p>    
+    <form method="POST" action="" >{% csrf_token %}
+    {{ el_form|crispy }}
+    <input class="btn btn-primary" type="submit" value="Enviar" />
+    </form>
+    {% else %}
+    <p class="lead text-align-center">{{titulo}}<br><br><br>
+      <i class="fa fa-hand-peace-o fa-5x" aria-hidden="true"></i>   
+    </p>    
+    {% endif %}
 </div>
 
 <div class="col-sm-3">
@@ -74,4 +104,5 @@
    <i class="fa fa-font-awesome fa-stack-1x" style="color: #47b78c;"></i></span></i></p>
 </div>
 </div>
+{% endif %}
 {% endblock %}
